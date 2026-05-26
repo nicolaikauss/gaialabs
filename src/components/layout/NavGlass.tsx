@@ -18,7 +18,7 @@ export function NavGlass() {
   return (
     <nav className="relative z-20 w-full">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6 lg:px-8">
-        <Logo variant="full" href="/" />
+        <Logo variant="full" href="/" light />
         <div className="hidden items-center space-x-1 rounded-full border border-white/10 bg-white/5 p-1 backdrop-blur-xl md:flex">
           {site.nav.map((item) => (
             <Link

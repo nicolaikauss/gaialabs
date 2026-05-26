@@ -211,7 +211,7 @@ export function LaserHero() {
       {/* Nav */}
       <div className="relative z-20 border-b border-white/10 bg-white/5 backdrop-blur-xl">
         <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-6 lg:px-8">
-          <Logo variant="full" href="/" className="max-h-8" />
+          <Logo variant="full" href="/" light className="max-h-8" />
           <div className="hidden gap-6 md:flex">
             {site.nav.map((item) => (
               <Link

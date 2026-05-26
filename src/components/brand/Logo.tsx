@@ -9,7 +9,7 @@ type LogoProps = {
   light?: boolean;
 };
 
-export function Logo({ variant = "mark", className, href = "/" }: LogoProps) {
+export function Logo({ variant = "mark", className, href = "/", light = false }: LogoProps) {
   const src = variant === "full" ? "/logo-full.svg" : "/logo-mark.svg";
 
   const content = (
@@ -19,6 +19,7 @@ export function Logo({ variant = "mark", className, href = "/" }: LogoProps) {
       className={cn(
         "h-auto w-auto bg-transparent object-contain object-left",
         variant === "full" ? "max-h-10 max-w-[160px]" : "max-h-9 max-w-[120px]",
+        light && "invert",
         className,
       )}
     />

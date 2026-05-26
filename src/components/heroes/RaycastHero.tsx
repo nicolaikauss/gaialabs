@@ -18,7 +18,7 @@ export function RaycastHero() {
       <div className="relative z-10">
         <div className="border-b border-white/10 bg-white/5 backdrop-blur-xl">
           <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-6 lg:px-8">
-            <Logo variant="full" href="/" className="max-h-8 rounded-md" />
+            <Logo variant="full" href="/" light className="max-h-8 rounded-md" />
             <div className="hidden gap-6 md:flex">
               {site.nav.slice(0, 2).map((item) => (
                 <Link

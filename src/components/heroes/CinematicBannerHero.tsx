@@ -83,7 +83,7 @@ export function CinematicBannerHero() {
       {/* Nav */}
       <nav className="relative z-20 px-6 py-6 lg:px-10">
         <div className="mx-auto flex max-w-7xl items-center justify-between">
-          <Logo variant="full" href="/" />
+          <Logo variant="full" href="/" light />
           <div className="hidden items-center gap-10 md:flex">
             {site.nav.map((item) => (
               <Link
