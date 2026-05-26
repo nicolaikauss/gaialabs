@@ -4,7 +4,6 @@ import dynamic from "next/dynamic";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Logo } from "@/components/brand/Logo";
-import { CpuArchitecture } from "@/components/ui/cpu-architecture";
 import { site } from "@/lib/site";
 import { buttonVariants } from "@/components/ui/button";
 import { LaserFlowWebGLFallback } from "@/components/ui/laser-flow-webgl";
@@ -92,74 +91,59 @@ export function CinematicBannerHero() {
         </div>
       </nav>
 
-      {/* Hero content — left text + right CpuArchitecture */}
+      {/* Hero content */}
       <div className="relative z-10 mx-auto flex min-h-[calc(100vh-5.5rem)] max-w-7xl items-center px-6 pb-28 pt-4 lg:px-10">
-        <div className="grid w-full items-center gap-16 lg:grid-cols-2">
-          {/* Left: text */}
-          <div className="max-w-xl">
-            <p className="mb-7 font-mono text-[10px] tracking-[0.35em] text-emerald-400/60 uppercase">
-              {site.parent}&nbsp;&nbsp;·&nbsp;&nbsp;{site.tagline}
-            </p>
+        <div className="max-w-2xl">
+          <p className="mb-7 font-mono text-[10px] tracking-[0.35em] text-emerald-400/60 uppercase">
+            {site.parent}&nbsp;&nbsp;·&nbsp;&nbsp;{site.tagline}
+          </p>
 
-            {/* Headline — Manrope ExtraBold (display font) */}
-            <h1
-              className="text-[clamp(3rem,6.5vw,6rem)] font-extrabold leading-[1.0] tracking-tight text-white"
-              style={{ fontFamily: "var(--font-display)" }}
+          {/* Headline — Manrope ExtraBold (display font) */}
+          <h1
+            className="text-[clamp(3rem,6.5vw,6rem)] font-extrabold leading-[1.0] tracking-tight text-white"
+            style={{ fontFamily: "var(--font-display)" }}
+          >
+            {site.headlines.editorial}
+          </h1>
+
+          <p className="mt-8 max-w-md text-[1.05rem] leading-relaxed text-white/45">
+            {site.description}
+          </p>
+
+          <div className="mt-10 flex flex-wrap items-center gap-3">
+            <Link
+              href={site.ctas.primary.href}
+              className={cn(
+                buttonVariants({ size: "lg" }),
+                "rounded-full bg-emerald-400 font-semibold text-black shadow-lg shadow-emerald-500/20 hover:bg-emerald-300",
+              )}
             >
-              {site.headlines.editorial}
-            </h1>
-
-            <p className="mt-8 max-w-md text-[1.05rem] leading-relaxed text-white/45">
-              {site.description}
-            </p>
-
-            <div className="mt-10 flex flex-wrap items-center gap-3">
-              <Link
-                href={site.ctas.primary.href}
-                className={cn(
-                  buttonVariants({ size: "lg" }),
-                  "rounded-full bg-emerald-400 font-semibold text-black shadow-lg shadow-emerald-500/20 hover:bg-emerald-300",
-                )}
-              >
-                {site.ctas.primary.label}
-                <ArrowRight className="size-4" />
-              </Link>
-              <Link
-                href={site.ctas.secondary.href}
-                className={cn(
-                  buttonVariants({ variant: "outline", size: "lg" }),
-                  "rounded-full border-white/15 bg-transparent text-white/70 hover:bg-white/5 hover:text-white",
-                )}
-              >
-                {site.ctas.secondary.label}
-              </Link>
-            </div>
-
-            {/* Approach strip */}
-            <div className="mt-20 flex items-center gap-10 border-t border-white/10 pt-7">
-              {site.approach.map((item) => (
-                <div key={item.title} className="flex flex-col gap-1">
-                  <span className="font-mono text-[10px] tracking-[0.25em] text-white/25 uppercase">
-                    {item.title}
-                  </span>
-                  <span className="text-xs text-white/40">
-                    {item.description.split("—")[0].trim().split(".")[0]}
-                  </span>
-                </div>
-              ))}
-            </div>
+              {site.ctas.primary.label}
+              <ArrowRight className="size-4" />
+            </Link>
+            <Link
+              href={site.ctas.secondary.href}
+              className={cn(
+                buttonVariants({ variant: "outline", size: "lg" }),
+                "rounded-full border-white/15 bg-transparent text-white/70 hover:bg-white/5 hover:text-white",
+              )}
+            >
+              {site.ctas.secondary.label}
+            </Link>
           </div>
 
-          {/* Right: CpuArchitecture diagram */}
-          <div className="hidden lg:flex items-center justify-center">
-            <div className="w-full max-w-sm opacity-60">
-              <CpuArchitecture
-                text="Capital"
-                className="w-full text-white/30"
-                width="100%"
-                height="180px"
-              />
-            </div>
+          {/* Approach strip */}
+          <div className="mt-20 flex items-center gap-10 border-t border-white/10 pt-7">
+            {site.approach.map((item) => (
+              <div key={item.title} className="flex flex-col gap-1">
+                <span className="font-mono text-[10px] tracking-[0.25em] text-white/25 uppercase">
+                  {item.title}
+                </span>
+                <span className="text-xs text-white/40">
+                  {item.description.split("—")[0].trim().split(".")[0]}
+                </span>
+              </div>
+            ))}
           </div>
         </div>
       </div>

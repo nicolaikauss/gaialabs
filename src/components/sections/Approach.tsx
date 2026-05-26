@@ -1,6 +1,7 @@
 import { site } from "@/lib/site";
 import type { VariantSlug } from "@/lib/variants";
 import { cn } from "@/lib/utils";
+import { CpuArchitecture } from "@/components/ui/cpu-architecture";
 
 const surfaceStyles: Record<VariantSlug, string> = {
   beams: "border-white/10 bg-white/5 backdrop-blur-xl text-white",
@@ -54,6 +55,16 @@ export function Approach({ variant }: { variant: VariantSlug }) {
               </p>
             </article>
           ))}
+        </div>
+
+        {/* Decorative circuit — subtle section divider */}
+        <div className="pointer-events-none mt-20 flex justify-center opacity-[0.12]" aria-hidden>
+          <CpuArchitecture
+            text="Gaia"
+            className={isDark ? "text-white/50" : "text-foreground/50"}
+            width="480px"
+            height="100px"
+          />
         </div>
       </div>
     </section>

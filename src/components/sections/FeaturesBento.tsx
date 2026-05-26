@@ -62,7 +62,7 @@ export function FeaturesBento() {
               <p className="mt-2 text-muted-foreground">{third.description}</p>
               <div className="mt-6 opacity-50">
                 <CpuArchitecture
-                  text="Build"
+                  text="Gaia"
                   className="w-full text-primary"
                   width="100%"
                   height="70px"

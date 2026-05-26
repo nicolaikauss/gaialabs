@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { ArrowRight, Menu, X } from "lucide-react";
 import { Logo } from "@/components/brand/Logo";
-import { CpuArchitecture } from "@/components/ui/cpu-architecture";
 import { site } from "@/lib/site";
 
 export function LinearHero() {
@@ -134,18 +133,9 @@ export function LinearHero() {
             </div>
           </div>
 
-          {/* CpuArchitecture + focus tags — replaces partner logos */}
+          {/* Focus tags */}
           <div className="animate-fade-up-delay-3 mx-auto mt-20 max-w-2xl">
-            <p className="mb-4 text-center font-mono text-xs tracking-widest text-white/30 uppercase">
-              {site.parent} · {site.tagline}
-            </p>
-            <CpuArchitecture
-              text="Gaia"
-              className="w-full text-white/20"
-              width="100%"
-              height="120px"
-            />
-            <div className="mt-6 flex flex-wrap justify-center gap-2">
+            <div className="flex flex-wrap justify-center gap-2">
               {site.focus.map((tag) => (
                 <span
                   key={tag}

@@ -4,7 +4,6 @@ import dynamic from "next/dynamic";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { NavGlass } from "@/components/layout/NavGlass";
-import { CpuArchitecture } from "@/components/ui/cpu-architecture";
 import { site } from "@/lib/site";
 import { buttonVariants } from "@/components/ui/button";
 import { BeamsStaticFallback } from "@/components/ui/beams-background";
@@ -103,15 +102,6 @@ export function BeamsHero() {
               </div>
             </div>
 
-            {/* CpuArchitecture — decorative circuit below CTAs */}
-            <div className="mx-auto mt-16 max-w-lg opacity-40">
-              <CpuArchitecture
-                text="Gaia"
-                className="w-full text-emerald-400/60"
-                width="100%"
-                height="100px"
-              />
-            </div>
           </div>
         </div>
       </div>
