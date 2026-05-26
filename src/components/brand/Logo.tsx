@@ -10,7 +10,7 @@ type LogoProps = {
 };
 
 export function Logo({ variant = "mark", className, href = "/", light = false }: LogoProps) {
-  const src = light ? "/logo-full-light.svg" : variant === "full" ? "/logo-full.svg" : "/logo-mark.svg";
+  const src = light ? "/gaia labs negative (1).png" : variant === "full" ? "/logo-full.svg" : "/logo-mark.svg";
 
   const content = (
     <img
