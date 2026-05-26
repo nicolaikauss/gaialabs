@@ -1,6 +1,8 @@
-"use client";
+﻿"use client";
 
 import dynamic from "next/dynamic";
+import { motion } from "motion/react";
+import type { Variants } from "motion/react";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { NavGlass } from "@/components/layout/NavGlass";
@@ -31,6 +33,19 @@ function usePrefersReducedMotion() {
   );
 }
 
+const stagger: Variants = {
+  show: { transition: { staggerChildren: 0.12 } },
+};
+
+const fadeUp: Variants = {
+  hidden: { opacity: 0, y: 24 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.65 },
+  },
+};
+
 export function BeamsHero() {
   const reducedMotion = usePrefersReducedMotion();
 
@@ -53,33 +68,57 @@ export function BeamsHero() {
           />
         )}
       </div>
-      <div className="absolute inset-0 z-0 bg-gradient-to-t from-black/50 via-transparent to-black/30" />
+      <div className="absolute inset-0 z-0 bg-gradient-to-t from-black/60 via-transparent to-black/30" />
+
       <div className="relative z-10">
         <NavGlass />
         <div className="flex min-h-[calc(100vh-4rem)] flex-col items-center justify-center">
           <div className="mx-auto w-full max-w-7xl px-6 lg:px-8">
-            <div className="mx-auto max-w-4xl text-center">
-              <div className="mb-8 inline-flex items-center rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-white/90 backdrop-blur-xl">
-                {site.parent}
-              </div>
-              <h1 className="mb-6 text-4xl font-bold tracking-tight text-white sm:text-6xl lg:text-7xl">
+            <motion.div
+              className="mx-auto max-w-4xl text-center"
+              variants={stagger}
+              initial={reducedMotion ? "show" : "hidden"}
+              animate="show"
+            >
+              {/* Badge */}
+              <motion.div variants={fadeUp} className="mb-8">
+                <span className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-white/90 backdrop-blur-xl">
+                  {site.parent}
+                </span>
+              </motion.div>
+
+              {/* Headline */}
+              <motion.h1
+                variants={fadeUp}
+                className="mb-6 text-4xl font-bold tracking-tight text-white sm:text-6xl lg:text-7xl"
+              >
                 {site.headlines.beams.split(" ").map((word, i) =>
                   i >= 3 ? (
                     <span
-                      key={word}
+                      key={`${word}-${i}`}
                       className="bg-gradient-to-r from-emerald-200 via-emerald-400 to-emerald-600 bg-clip-text text-transparent"
                     >
                       {word}{" "}
                     </span>
                   ) : (
-                    <span key={word}>{word} </span>
+                    <span key={`${word}-${i}`}>{word} </span>
                   ),
                 )}
-              </h1>
-              <p className="mx-auto mb-10 max-w-3xl text-lg leading-8 text-white/80 sm:text-xl">
+              </motion.h1>
+
+              {/* Description */}
+              <motion.p
+                variants={fadeUp}
+                className="mx-auto mb-10 max-w-3xl text-lg leading-8 text-white/70 sm:text-xl"
+              >
                 {site.description}
-              </p>
-              <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
+              </motion.p>
+
+              {/* CTAs */}
+              <motion.div
+                variants={fadeUp}
+                className="flex flex-col items-center justify-center gap-4 sm:flex-row"
+              >
                 <Link
                   href={site.ctas.primary.href}
                   className={cn(
@@ -99,12 +138,12 @@ export function BeamsHero() {
                 >
                   {site.ctas.secondary.label}
                 </Link>
-              </div>
-            </div>
-
+              </motion.div>
+            </motion.div>
           </div>
         </div>
       </div>
     </header>
   );
 }
+

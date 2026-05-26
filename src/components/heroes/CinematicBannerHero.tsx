@@ -1,6 +1,8 @@
-"use client";
+﻿"use client";
 
 import dynamic from "next/dynamic";
+import { motion } from "motion/react";
+import type { Variants } from "motion/react";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Logo } from "@/components/brand/Logo";
@@ -30,12 +32,25 @@ function usePrefersReducedMotion() {
   );
 }
 
+const stagger: Variants = {
+  show: { transition: { staggerChildren: 0.11, delayChildren: 0.2 } },
+};
+
+const fadeUp: Variants = {
+  hidden: { opacity: 0, y: 20 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.65 },
+  },
+};
+
 export function CinematicBannerHero() {
   const reducedMotion = usePrefersReducedMotion();
 
   return (
     <header className="dark relative min-h-screen overflow-hidden bg-black">
-      {/* WebGL beam background */}
+      {/* WebGL beam â€” shifted lower via verticalBeamOffset */}
       <div className="absolute inset-0 z-0">
         {reducedMotion ? (
           <LaserFlowWebGLFallback className="absolute inset-0" />
@@ -43,7 +58,7 @@ export function CinematicBannerHero() {
           <LaserFlowWebGL
             color="#34d399"
             horizontalBeamOffset={0.22}
-            verticalBeamOffset={0.0}
+            verticalBeamOffset={0.18}
             verticalSizing={4.2}
             horizontalSizing={0.38}
             fogIntensity={0.38}
@@ -60,6 +75,8 @@ export function CinematicBannerHero() {
           />
         )}
       </div>
+
+      {/* Left-side vignette so text stays legible */}
       <div className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-r from-black via-black/70 to-transparent" />
       <div className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-b from-black/60 via-transparent to-black/80" />
 
@@ -92,25 +109,40 @@ export function CinematicBannerHero() {
       </nav>
 
       {/* Hero content */}
-      <div className="relative z-10 mx-auto flex min-h-[calc(100vh-5.5rem)] max-w-7xl items-center px-6 pb-28 pt-4 lg:px-10">
-        <div className="max-w-2xl">
-          <p className="mb-7 font-mono text-[10px] tracking-[0.35em] text-emerald-400/60 uppercase">
-            {site.parent}&nbsp;&nbsp;·&nbsp;&nbsp;{site.tagline}
-          </p>
+      <motion.div
+        className="relative z-10 mx-auto flex min-h-[calc(100vh-5.5rem)] max-w-7xl flex-col justify-center px-6 pb-28 pt-4 lg:px-10"
+        variants={stagger}
+        initial={reducedMotion ? "show" : "hidden"}
+        animate="show"
+      >
+        <div className="max-w-xl">
+          {/* Eyebrow */}
+          <motion.p
+            variants={fadeUp}
+            className="mb-7 font-mono text-[10px] tracking-[0.35em] text-emerald-400/60 uppercase"
+          >
+            {site.parent}&nbsp;&nbsp;Â·&nbsp;&nbsp;{site.tagline}
+          </motion.p>
 
-          {/* Headline — Manrope ExtraBold (display font) */}
-          <h1
+          {/* Headline */}
+          <motion.h1
+            variants={fadeUp}
             className="text-[clamp(3rem,6.5vw,6rem)] font-extrabold leading-[1.0] tracking-tight text-white"
             style={{ fontFamily: "var(--font-display)" }}
           >
             {site.headlines.editorial}
-          </h1>
+          </motion.h1>
 
-          <p className="mt-8 max-w-md text-[1.05rem] leading-relaxed text-white/45">
+          {/* Body */}
+          <motion.p
+            variants={fadeUp}
+            className="mt-8 max-w-md text-[1.05rem] leading-relaxed text-white/45"
+          >
             {site.description}
-          </p>
+          </motion.p>
 
-          <div className="mt-10 flex flex-wrap items-center gap-3">
+          {/* CTAs */}
+          <motion.div variants={fadeUp} className="mt-10 flex flex-wrap items-center gap-3">
             <Link
               href={site.ctas.primary.href}
               className={cn(
@@ -130,25 +162,29 @@ export function CinematicBannerHero() {
             >
               {site.ctas.secondary.label}
             </Link>
-          </div>
+          </motion.div>
 
           {/* Approach strip */}
-          <div className="mt-20 flex items-center gap-10 border-t border-white/10 pt-7">
+          <motion.div
+            variants={fadeUp}
+            className="mt-20 flex items-center gap-10 border-t border-white/10 pt-7"
+          >
             {site.approach.map((item) => (
               <div key={item.title} className="flex flex-col gap-1">
                 <span className="font-mono text-[10px] tracking-[0.25em] text-white/25 uppercase">
                   {item.title}
                 </span>
                 <span className="text-xs text-white/40">
-                  {item.description.split("—")[0].trim().split(".")[0]}
+                  {item.description.split("â€”")[0].trim().split(".")[0]}
                 </span>
               </div>
             ))}
-          </div>
+          </motion.div>
         </div>
-      </div>
+      </motion.div>
 
       <div className="absolute bottom-0 left-0 right-0 z-10 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
     </header>
   );
 }
+

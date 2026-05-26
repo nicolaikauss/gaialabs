@@ -1,7 +1,8 @@
-"use client";
+﻿"use client";
 
 import { useRef, useEffect, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
+import type { Variants } from "motion/react";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Logo } from "@/components/brand/Logo";
@@ -53,6 +54,19 @@ function createBeam(width: number, height: number, layer: number): Beam {
     layer,
   };
 }
+
+const stagger: Variants = {
+  show: { transition: { staggerChildren: 0.13, delayChildren: 0.15 } },
+};
+
+const fadeUp: Variants = {
+  hidden: { opacity: 0, y: 22 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6 },
+  },
+};
 
 export function LaserHero() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -122,7 +136,6 @@ export function LaserHero() {
       const w = canvas.offsetWidth;
       const h = canvas.offsetHeight;
 
-      // Dark gradient background
       const bg = ctx.createLinearGradient(0, 0, 0, h);
       bg.addColorStop(0, "#020408");
       bg.addColorStop(0.5, "#070d12");
@@ -130,7 +143,6 @@ export function LaserHero() {
       ctx.fillStyle = bg;
       ctx.fillRect(0, 0, w, h);
 
-      // Draw beams back-to-front
       for (let layer = LAYERS - 1; layer >= 0; layer--) {
         const layerBeams = beamsRef.current.filter((b) => b.layer === layer);
         for (const beam of layerBeams) {
@@ -160,7 +172,6 @@ export function LaserHero() {
         }
       }
 
-      // Noise overlay
       const noiseCanvas = noiseRef.current;
       if (noiseCanvas) {
         const pattern = ctx.createPattern(noiseCanvas, "repeat");
@@ -184,15 +195,8 @@ export function LaserHero() {
 
   return (
     <header className="dark relative min-h-screen w-full overflow-hidden bg-[#020408]">
-      {/* Hidden noise canvas used as texture pattern */}
       <canvas ref={noiseRef} className="hidden" aria-hidden />
-
-      {/* Main beam canvas */}
-      <canvas
-        ref={canvasRef}
-        className="absolute inset-0 z-0 h-full w-full"
-        aria-hidden
-      />
+      <canvas ref={canvasRef} className="absolute inset-0 z-0 h-full w-full" aria-hidden />
 
       {/* Radial vignette */}
       <div
@@ -229,26 +233,36 @@ export function LaserHero() {
       </div>
 
       {/* Hero content */}
-      <div className="relative z-10 flex min-h-[calc(100vh-3.5rem)] flex-col items-center justify-center px-6 py-16 text-center lg:px-8">
+      <motion.div
+        className="relative z-10 flex min-h-[calc(100vh-3.5rem)] flex-col items-center justify-center px-6 py-16 text-center lg:px-8"
+        variants={stagger}
+        initial={reducedMotion ? "show" : "hidden"}
+        animate="show"
+      >
         {/* Badge */}
-        <div className="mb-8 inline-flex items-center rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs text-white/60 backdrop-blur-xl">
-          {site.parent}&nbsp;·&nbsp;{site.tagline}
-        </div>
+        <motion.div variants={fadeUp} className="mb-8">
+          <span className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs text-white/60 backdrop-blur-xl">
+            {site.parent}&nbsp;Â·&nbsp;{site.tagline}
+          </span>
+        </motion.div>
 
         {/* Animated headline */}
-        <h1 className="mx-auto max-w-4xl text-4xl font-bold tracking-tight text-white sm:text-6xl lg:text-7xl">
+        <motion.h1
+          variants={fadeUp}
+          className="mx-auto max-w-4xl text-4xl font-bold tracking-tight text-white sm:text-6xl lg:text-7xl"
+        >
           <span>We </span>
           <span
             className="relative inline-block overflow-hidden align-bottom"
-            style={{ minWidth: "5ch" }}
+            style={{ minWidth: "6ch" }}
           >
             <AnimatePresence mode="wait">
               <motion.span
                 key={WORDS[wordIndex]}
-                initial={{ opacity: 0, y: -100 }}
+                initial={{ opacity: 0, y: -60 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 100 }}
-                transition={{ duration: 0.4, ease: "easeInOut" }}
+                exit={{ opacity: 0, y: 60 }}
+                transition={{ duration: 0.38, ease: "easeOut" }}
                 className="inline-block text-emerald-400"
               >
                 {WORDS[wordIndex]}
@@ -256,13 +270,19 @@ export function LaserHero() {
             </AnimatePresence>
           </span>
           <span> with purpose</span>
-        </h1>
+        </motion.h1>
 
-        <p className="mx-auto mt-6 max-w-2xl text-lg text-white/70 sm:text-xl">
+        <motion.p
+          variants={fadeUp}
+          className="mx-auto mt-6 max-w-2xl text-lg text-white/70 sm:text-xl"
+        >
           {site.description}
-        </p>
+        </motion.p>
 
-        <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+        <motion.div
+          variants={fadeUp}
+          className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row"
+        >
           <Link
             href={site.ctas.primary.href}
             className={cn(
@@ -282,8 +302,9 @@ export function LaserHero() {
           >
             {site.ctas.secondary.label}
           </Link>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     </header>
   );
 }
+

@@ -9,9 +9,9 @@ export const variants = [
   {
     slug: "linear",
     title: "2",
-    mood: "Dark precision",
-    defaultTheme: "dark" as const,
-    previewClass: "bg-slate-950 from-slate-800",
+    mood: "Light precision",
+    defaultTheme: "light" as const,
+    previewClass: "bg-white from-emerald-100",
   },
   {
     slug: "raycast",

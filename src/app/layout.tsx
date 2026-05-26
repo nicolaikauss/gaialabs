@@ -28,7 +28,7 @@ const manrope = Manrope({
 export const metadata: Metadata = {
   title: "Gaia Labs",
   description:
-    "A tech incubator under Gaia Capital. We launch products—mostly SaaS—and invest in tech and fintech.",
+    "Gaia Labs identifies and accelerates early-stage technology ventures at the intersection of deep tech, fintech, and sustainable innovation.",
 };
 
 export default function RootLayout({
