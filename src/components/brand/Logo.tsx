@@ -17,7 +17,7 @@ export function Logo({ variant = "mark", className, href = "/" }: LogoProps) {
       src={src}
       alt={site.name}
       className={cn(
-        "h-auto w-auto object-contain object-left dark:invert",
+        "h-auto w-auto bg-transparent object-contain object-left",
         variant === "full" ? "max-h-10 max-w-[160px]" : "max-h-9 max-w-[120px]",
         className,
       )}
