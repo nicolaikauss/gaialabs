@@ -4,6 +4,7 @@ import dynamic from "next/dynamic";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Logo } from "@/components/brand/Logo";
+import { CpuArchitecture } from "@/components/ui/cpu-architecture";
 import { site } from "@/lib/site";
 import { buttonVariants } from "@/components/ui/button";
 import { LaserFlowFallback } from "@/components/ui/laser-flow";
@@ -104,30 +105,34 @@ export function LaserHero() {
             </div>
           </div>
 
-          {/* Incubator dashboard mock */}
+          {/* CpuArchitecture as the dashboard mock */}
           <div
-            className="mx-auto mt-16 w-full max-w-md rounded-2xl border border-white/10 bg-white/5 p-4 shadow-2xl backdrop-blur-xl"
+            className="mx-auto mt-16 w-full max-w-md rounded-2xl border border-white/10 bg-white/5 p-6 shadow-2xl backdrop-blur-xl"
             aria-hidden
           >
-            <div className="mb-3 flex gap-2 border-b border-white/10 pb-3">
+            <div className="mb-4 flex gap-2 border-b border-white/10 pb-3">
               {site.approach.map((item, i) => (
                 <span
                   key={item.title}
                   className={cn(
                     "cursor-default rounded-full px-3 py-1 text-xs",
-                    i === 0
-                      ? "bg-white/10 text-white/90"
-                      : "text-white/40",
+                    i === 0 ? "bg-white/10 text-white/90" : "text-white/40",
                   )}
                 >
                   {item.title}
                 </span>
               ))}
             </div>
-            <ul className="space-y-2 text-sm text-white/60">
+            <CpuArchitecture
+              text="GaiaOS"
+              className="w-full text-emerald-400/40"
+              width="100%"
+              height="90px"
+            />
+            <ul className="mt-4 space-y-1.5 text-xs text-white/50">
               {site.focus.map((item) => (
-                <li key={item} className="flex items-center gap-2 rounded-lg px-3 py-2 hover:bg-white/5">
-                  <span className="size-1.5 rounded-full bg-emerald-400/70" />
+                <li key={item} className="flex items-center gap-2 rounded-md px-2 py-1.5 hover:bg-white/5">
+                  <span className="size-1.5 rounded-full bg-emerald-400/60" />
                   {item}
                 </li>
               ))}

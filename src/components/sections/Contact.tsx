@@ -6,7 +6,7 @@ import type { VariantSlug } from "@/lib/variants";
 import { cn } from "@/lib/utils";
 
 export function Contact({ variant }: { variant: VariantSlug }) {
-  const isDark = variant !== "linear";
+  const isDark = true; // all variants are dark
   const isEditorial = variant === "editorial";
 
   return (

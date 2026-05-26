@@ -1,7 +1,7 @@
 import { Rocket, TrendingUp, Layers } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+import { CpuArchitecture } from "@/components/ui/cpu-architecture";
 import { site } from "@/lib/site";
-import { cn } from "@/lib/utils";
 
 const icons = [
   <Rocket key="launch" className="size-8" />,
@@ -13,7 +13,7 @@ export function FeaturesBento() {
   const [first, second, third] = site.approach;
 
   return (
-    <section id="approach" className="scroll-mt-20 bg-gray-50 px-6 py-16 md:py-32 lg:px-8">
+    <section id="approach" className="scroll-mt-20 bg-background px-6 py-16 md:py-32 lg:px-8">
       <div className="mx-auto max-w-7xl">
         <div className="mb-12">
           <p className="font-mono text-xs tracking-widest text-muted-foreground uppercase">
@@ -26,7 +26,7 @@ export function FeaturesBento() {
         </div>
 
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {/* Launch — wide card */}
+          {/* Launch — wide */}
           <Card className="cursor-pointer transition-all hover:shadow-md lg:col-span-2">
             <CardContent className="p-8">
               <div className="text-primary">{icons[0]}</div>
@@ -54,16 +54,25 @@ export function FeaturesBento() {
             </CardContent>
           </Card>
 
-          {/* Build */}
+          {/* Build — with CpuArchitecture illustration */}
           <Card className="cursor-pointer transition-all hover:shadow-md">
             <CardContent className="p-8">
               <div className="text-primary">{icons[2]}</div>
               <h3 className="mt-4 text-xl font-semibold">{third.title}</h3>
               <p className="mt-2 text-muted-foreground">{third.description}</p>
+              <div className="mt-6 opacity-50">
+                <CpuArchitecture
+                  text="Build"
+                  className="w-full text-primary"
+                  width="100%"
+                  height="70px"
+                  animateText={false}
+                />
+              </div>
             </CardContent>
           </Card>
 
-          {/* Focus areas — wide card */}
+          {/* Focus areas — wide with CpuArchitecture */}
           <Card className="cursor-pointer transition-all hover:shadow-md lg:col-span-2">
             <CardContent className="p-8">
               <p className="font-mono text-xs tracking-widest text-muted-foreground uppercase">

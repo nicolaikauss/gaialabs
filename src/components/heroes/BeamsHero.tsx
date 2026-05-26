@@ -4,6 +4,7 @@ import dynamic from "next/dynamic";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { NavGlass } from "@/components/layout/NavGlass";
+import { CpuArchitecture } from "@/components/ui/cpu-architecture";
 import { site } from "@/lib/site";
 import { buttonVariants } from "@/components/ui/button";
 import { BeamsStaticFallback } from "@/components/ui/beams-background";
@@ -56,7 +57,7 @@ export function BeamsHero() {
       <div className="absolute inset-0 z-0 bg-gradient-to-t from-black/50 via-transparent to-black/30" />
       <div className="relative z-10">
         <NavGlass />
-        <div className="flex min-h-[calc(100vh-4rem)] items-center">
+        <div className="flex min-h-[calc(100vh-4rem)] flex-col items-center justify-center">
           <div className="mx-auto w-full max-w-7xl px-6 lg:px-8">
             <div className="mx-auto max-w-4xl text-center">
               <div className="mb-8 inline-flex items-center rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-white/90 backdrop-blur-xl">
@@ -100,6 +101,16 @@ export function BeamsHero() {
                   {site.ctas.secondary.label}
                 </Link>
               </div>
+            </div>
+
+            {/* CpuArchitecture — decorative circuit below CTAs */}
+            <div className="mx-auto mt-16 max-w-lg opacity-40">
+              <CpuArchitecture
+                text="Gaia"
+                className="w-full text-emerald-400/60"
+                width="100%"
+                height="100px"
+              />
             </div>
           </div>
         </div>

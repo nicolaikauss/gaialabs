@@ -10,7 +10,7 @@ const pillStyles: Record<VariantSlug, string> = {
 };
 
 export function Focus({ variant }: { variant: VariantSlug }) {
-  const isDark = variant !== "linear";
+  const isDark = true; // all variants are dark
 
   return (
     <section

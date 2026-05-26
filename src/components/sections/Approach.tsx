@@ -10,7 +10,7 @@ const surfaceStyles: Record<VariantSlug, string> = {
 };
 
 export function Approach({ variant }: { variant: VariantSlug }) {
-  const isDark = variant !== "linear";
+  const isDark = true; // all variants are dark
 
   return (
     <section

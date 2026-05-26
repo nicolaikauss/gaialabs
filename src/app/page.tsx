@@ -34,7 +34,7 @@ export default function GalleryPage() {
                 className={cn(
                   "h-36 bg-gradient-to-br",
                   v.slug === "beams" && "from-slate-950 via-slate-900 to-emerald-900/40",
-                  v.slug === "linear" && "from-sky-50 via-sky-100 to-emerald-100/50",
+                  v.slug === "linear" && "from-slate-950 via-slate-900 to-slate-800/50",
                   v.slug === "raycast" && "from-slate-950 via-slate-900 to-emerald-500/30",
                   v.slug === "editorial" && "from-stone-950 via-stone-900 to-amber-900/30",
                 )}

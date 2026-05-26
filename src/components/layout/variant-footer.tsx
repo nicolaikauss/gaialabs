@@ -3,7 +3,7 @@ import type { VariantSlug } from "@/lib/variants";
 import { cn } from "@/lib/utils";
 
 export function VariantFooter({ variant }: { variant: VariantSlug }) {
-  const isDark = variant !== "linear";
+  const isDark = true; // all variants are dark
   return (
     <footer
       className={cn(
