@@ -28,7 +28,7 @@ export default function GalleryPage() {
           {variants.map((v) => (
             <article
               key={v.slug}
-              className="group overflow-hidden rounded-xl border border-border bg-card transition-shadow hover:shadow-lg"
+              className="group overflow-hidden rounded-3xl border border-white/40 bg-white/65 backdrop-blur-2xl shadow-xl shadow-black/[0.04] ring-1 ring-inset ring-white/60 transition-shadow hover:shadow-2xl"
             >
               <div
                 className={cn(

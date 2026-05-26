@@ -7,7 +7,6 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { NavGlass } from "@/components/layout/NavGlass";
 import { site } from "@/lib/site";
-import { buttonVariants } from "@/components/ui/button";
 import { BeamsStaticFallback } from "@/components/ui/beams-background";
 import { cn } from "@/lib/utils";
 import { useSyncExternalStore } from "react";
@@ -38,19 +37,64 @@ const stagger: Variants = {
 };
 
 const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 24 },
+  hidden: { opacity: 0, y: 28 },
   show: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.65 },
+    transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] },
   },
 };
+
+/** Liquid Glass badge — small frosted pill with luminous edge */
+function GlassBadge({ children }: { children: React.ReactNode }) {
+  return (
+    <span
+      className="inline-flex items-center rounded-full border border-white/25 bg-white/[0.08] px-4 py-2 text-sm font-medium text-white/90 backdrop-blur-xl ring-1 ring-inset ring-white/20"
+    >
+      {children}
+    </span>
+  );
+}
+
+/** Liquid Glass primary CTA — solid white with soft emerald tint on hover */
+function GlassPrimaryButton({ href, children }: { href: string; children: React.ReactNode }) {
+  return (
+    <Link
+      href={href}
+      className={cn(
+        "group inline-flex items-center justify-center gap-2 rounded-full bg-white px-7 py-3.5 text-sm font-semibold text-black",
+        "shadow-[0_2px_24px_-4px_rgba(52,211,153,0.25)] transition-all duration-300",
+        "hover:shadow-[0_4px_32px_-4px_rgba(52,211,153,0.35)] hover:bg-emerald-50 active:scale-[0.98]",
+      )}
+    >
+      {children}
+      <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-0.5" />
+    </Link>
+  );
+}
+
+/** Liquid Glass secondary CTA — translucent with depth */
+function GlassSecondaryButton({ href, children }: { href: string; children: React.ReactNode }) {
+  return (
+    <Link
+      href={href}
+      className={cn(
+        "inline-flex items-center justify-center rounded-full border border-white/20 px-7 py-3.5 text-sm font-medium text-white",
+        "bg-white/[0.06] backdrop-blur-xl ring-1 ring-inset ring-white/10",
+        "transition-all duration-300 hover:bg-white/[0.12] hover:border-white/30 active:scale-[0.98]",
+      )}
+    >
+      {children}
+    </Link>
+  );
+}
 
 export function BeamsHero() {
   const reducedMotion = usePrefersReducedMotion();
 
   return (
-    <header className="dark relative min-h-screen w-full overflow-hidden bg-black">
+    <header className="relative min-h-screen w-full overflow-hidden bg-black">
+      {/* Layer 0: animated beams canvas */}
       <div className="absolute inset-0 z-0">
         {reducedMotion ? (
           <BeamsStaticFallback className="h-full w-full" />
@@ -68,35 +112,38 @@ export function BeamsHero() {
           />
         )}
       </div>
-      <div className="absolute inset-0 z-0 bg-gradient-to-t from-black/60 via-transparent to-black/30" />
 
-      <div className="relative z-10">
+      {/* Layer 1: depth gradient wash — soft vignette for readability */}
+      <div className="absolute inset-0 z-[1] bg-[radial-gradient(ellipse_70%_60%_at_50%_40%,transparent_30%,rgba(0,0,0,0.55)_100%)]" />
+      <div className="absolute inset-0 z-[1] bg-gradient-to-b from-black/20 via-transparent to-black/50" />
+
+      {/* Layer 2: content */}
+      <div className="relative z-10 flex min-h-screen flex-col">
         <NavGlass />
-        <div className="flex min-h-[calc(100vh-4rem)] flex-col items-center justify-center">
-          <div className="mx-auto w-full max-w-7xl px-6 lg:px-8">
+
+        <div className="flex flex-1 flex-col items-center justify-center px-6 pb-20 pt-10 lg:px-8">
+          <div className="mx-auto w-full max-w-5xl">
             <motion.div
-              className="mx-auto max-w-4xl text-center"
+              className="flex flex-col items-center text-center"
               variants={stagger}
               initial={reducedMotion ? "show" : "hidden"}
               animate="show"
             >
-              {/* Badge */}
-              <motion.div variants={fadeUp} className="mb-8">
-                <span className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-white/90 backdrop-blur-xl">
-                  {site.parent}
-                </span>
+              {/* Floating glass badge */}
+              <motion.div variants={fadeUp} className="mb-10">
+                <GlassBadge>{site.parent}</GlassBadge>
               </motion.div>
 
-              {/* Headline */}
+              {/* Headline — large, confident, calm */}
               <motion.h1
                 variants={fadeUp}
-                className="mb-6 text-4xl font-bold tracking-tight text-white sm:text-6xl lg:text-7xl"
+                className="max-w-4xl text-[2.75rem] font-semibold leading-[1.1] tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl"
               >
                 {site.headlines.beams.split(" ").map((word, i) =>
                   i >= 3 ? (
                     <span
                       key={`${word}-${i}`}
-                      className="bg-gradient-to-r from-emerald-200 via-emerald-400 to-emerald-600 bg-clip-text text-transparent"
+                      className="bg-gradient-to-r from-emerald-200 via-emerald-400 to-emerald-500 bg-clip-text text-transparent"
                     >
                       {word}{" "}
                     </span>
@@ -106,38 +153,40 @@ export function BeamsHero() {
                 )}
               </motion.h1>
 
-              {/* Description */}
+              {/* Description — short, supporting */}
               <motion.p
                 variants={fadeUp}
-                className="mx-auto mb-10 max-w-3xl text-lg leading-8 text-white/70 sm:text-xl"
+                className="mx-auto mt-8 max-w-2xl text-lg leading-relaxed text-white/60 sm:text-xl"
               >
                 {site.description}
               </motion.p>
 
-              {/* CTAs */}
+              {/* Glass CTA row */}
               <motion.div
                 variants={fadeUp}
-                className="flex flex-col items-center justify-center gap-4 sm:flex-row"
+                className="mt-12 flex flex-col items-center gap-4 sm:flex-row"
               >
-                <Link
-                  href={site.ctas.primary.href}
-                  className={cn(
-                    buttonVariants({ size: "lg" }),
-                    "rounded-full bg-white text-black shadow-2xl shadow-emerald-500/20 hover:bg-gray-100",
-                  )}
-                >
+                <GlassPrimaryButton href={site.ctas.primary.href}>
                   {site.ctas.primary.label}
-                  <ArrowRight className="size-5" />
-                </Link>
-                <Link
-                  href={site.ctas.secondary.href}
-                  className={cn(
-                    buttonVariants({ variant: "outline", size: "lg" }),
-                    "rounded-full border-white/20 bg-white/5 text-white backdrop-blur-xl hover:bg-white/10",
-                  )}
-                >
+                </GlassPrimaryButton>
+                <GlassSecondaryButton href={site.ctas.secondary.href}>
                   {site.ctas.secondary.label}
-                </Link>
+                </GlassSecondaryButton>
+              </motion.div>
+
+              {/* Floating credibility strip — translucent pills */}
+              <motion.div
+                variants={fadeUp}
+                className="mt-20 flex flex-wrap items-center justify-center gap-3"
+              >
+                {["Deep Tech", "Fintech", "Sustainable Innovation", "Seed & Series A"].map((tag) => (
+                  <span
+                    key={tag}
+                    className="rounded-full border border-white/15 bg-white/[0.05] px-4 py-1.5 text-xs font-medium text-white/50 backdrop-blur-md ring-1 ring-inset ring-white/10"
+                  >
+                    {tag}
+                  </span>
+                ))}
               </motion.div>
             </motion.div>
           </div>
