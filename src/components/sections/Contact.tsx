@@ -1,8 +1,11 @@
+"use client";
+
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { site } from "@/lib/site";
 import type { VariantSlug } from "@/lib/variants";
 import { cn } from "@/lib/utils";
+import { TextScrambleInView } from "@/components/ui/text-scramble";
 
 export function Contact({ variant }: { variant: VariantSlug }) {
   const isDark = true;
@@ -34,36 +37,42 @@ export function Contact({ variant }: { variant: VariantSlug }) {
                 isDark && "text-white",
               )}
             >
-              Get in touch
+              <TextScrambleInView as="span" duration={0.9} speed={0.03}>
+                Get in touch
+              </TextScrambleInView>
             </h2>
             <p className={cn("mt-4 text-base leading-relaxed", isDark ? "text-white/50" : "text-muted-foreground")}>
               {site.name} operates under {site.parent}.
             </p>
 
             <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-              {/* Primary — solid white with emerald glow */}
+              {/* Primary — gradient slide-up on hover */}
               <Link
                 href={site.ctas.primary.href}
                 className={cn(
-                  "group inline-flex items-center justify-center gap-2 rounded-full bg-white px-8 py-4 text-sm font-semibold text-black",
+                  "group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full bg-white px-8 py-4 text-sm font-semibold text-black",
                   "shadow-[0_2px_24px_-4px_rgba(52,211,153,0.25)] transition-all duration-300",
-                  "hover:shadow-[0_4px_32px_-4px_rgba(52,211,153,0.35)] hover:bg-emerald-50 active:scale-[0.98]",
+                  "hover:shadow-[0_4px_40px_-4px_rgba(52,211,153,0.5)] active:scale-[0.98]",
                 )}
               >
-                {site.ctas.primary.label}
-                <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-0.5" />
+                <span className="absolute inset-0 translate-y-full rounded-full bg-gradient-to-r from-emerald-300 via-emerald-400 to-emerald-500 transition-transform duration-300 ease-out group-hover:translate-y-0" aria-hidden />
+                <span className="relative z-10 flex items-center gap-2">
+                  {site.ctas.primary.label}
+                  <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-0.5" />
+                </span>
               </Link>
 
-              {/* Secondary — liquid glass */}
+              {/* Secondary — gradient slide-up on hover */}
               <Link
                 href={site.ctas.secondary.href}
                 className={cn(
-                  "inline-flex items-center justify-center rounded-full border border-white/20 px-8 py-4 text-sm font-medium text-white",
+                  "group relative inline-flex items-center justify-center overflow-hidden rounded-full border border-white/20 px-8 py-4 text-sm font-medium text-white",
                   "bg-white/[0.06] backdrop-blur-xl ring-1 ring-inset ring-white/10",
-                  "transition-all duration-300 hover:bg-white/[0.12] hover:border-white/30 active:scale-[0.98]",
+                  "transition-all duration-300 hover:border-emerald-400/40 hover:text-black active:scale-[0.98]",
                 )}
               >
-                {site.ctas.secondary.label}
+                <span className="absolute inset-0 translate-y-full rounded-full bg-gradient-to-r from-emerald-300 via-emerald-400 to-emerald-500 transition-transform duration-300 ease-out group-hover:translate-y-0" aria-hidden />
+                <span className="relative z-10">{site.ctas.secondary.label}</span>
               </Link>
             </div>
           </div>

@@ -4,7 +4,6 @@ import Link from "next/link";
 import { ArrowRight, Menu } from "lucide-react";
 import { Logo } from "@/components/brand/Logo";
 import { site } from "@/lib/site";
-import { buttonVariants } from "@/components/ui/button";
 import {
   Sheet,
   SheetContent,
@@ -12,7 +11,6 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { cn } from "@/lib/utils";
 
 export function NavGlass() {
   return (
@@ -34,27 +32,24 @@ export function NavGlass() {
           ))}
         </div>
 
-        {/* Desktop CTA — solid white pill */}
+        {/* Desktop CTA — gradient slide-up */}
         <div className="hidden items-center gap-3 sm:flex">
           <Link
             href={site.ctas.primary.href}
-            className={cn(
-              buttonVariants({ size: "sm" }),
-              "rounded-full bg-white text-black shadow-[0_2px_16px_-4px_rgba(52,211,153,0.25)] transition-all duration-300 hover:bg-emerald-50 hover:shadow-[0_4px_24px_-4px_rgba(52,211,153,0.35)]",
-            )}
+            className="group relative inline-flex items-center justify-center gap-1.5 overflow-hidden rounded-full bg-white px-5 py-2 text-sm font-semibold text-black shadow-[0_2px_16px_-4px_rgba(52,211,153,0.25)] transition-all duration-300 hover:shadow-[0_4px_24px_-4px_rgba(52,211,153,0.45)] active:scale-[0.98]"
           >
-            {site.ctas.primary.label}
-            <ArrowRight className="size-4" />
+            <span className="absolute inset-0 translate-y-full rounded-full bg-gradient-to-r from-emerald-300 via-emerald-400 to-emerald-500 transition-transform duration-300 ease-out group-hover:translate-y-0" aria-hidden />
+            <span className="relative z-10 flex items-center gap-1.5">
+              {site.ctas.primary.label}
+              <ArrowRight className="size-3.5 transition-transform duration-300 group-hover:translate-x-0.5" />
+            </span>
           </Link>
         </div>
 
         {/* Mobile: glass icon button */}
         <Sheet>
           <SheetTrigger
-            className={cn(
-              buttonVariants({ variant: "ghost", size: "icon" }),
-              "rounded-full border border-white/15 bg-white/[0.06] backdrop-blur-xl text-white ring-1 ring-inset ring-white/10 md:hidden",
-            )}
+            className="inline-flex size-9 items-center justify-center rounded-full border border-white/15 bg-white/[0.06] backdrop-blur-xl text-white ring-1 ring-inset ring-white/10 transition-colors hover:bg-white/10 md:hidden"
             aria-label="Open menu"
           >
             <Menu className="size-5" />
@@ -78,12 +73,10 @@ export function NavGlass() {
               ))}
               <Link
                 href={site.ctas.primary.href}
-                className={cn(
-                  buttonVariants(),
-                  "mt-4 rounded-full bg-white text-black hover:bg-emerald-50",
-                )}
+                className="group relative mt-4 inline-flex items-center justify-center overflow-hidden rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-black transition-all duration-300 active:scale-[0.98]"
               >
-                {site.ctas.primary.label}
+                <span className="absolute inset-0 translate-y-full rounded-full bg-gradient-to-r from-emerald-300 via-emerald-400 to-emerald-500 transition-transform duration-300 ease-out group-hover:translate-y-0" aria-hidden />
+                <span className="relative z-10">{site.ctas.primary.label}</span>
               </Link>
             </div>
           </SheetContent>

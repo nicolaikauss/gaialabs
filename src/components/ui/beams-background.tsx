@@ -179,16 +179,20 @@ const hexToNormalizedRGB = (hex: string): [number, number, number] => {
 
 const MergedPlanes = forwardRef<
   THREE.Mesh<THREE.BufferGeometry, THREE.ShaderMaterial>,
-  { material: THREE.ShaderMaterial; width: number; count: number; height: number }
->(({ material, width, count, height }, ref) => {
+  { material: THREE.ShaderMaterial; width: number; count: number; height: number; scrollVelocityRef: React.RefObject<number> }
+>(({ material, width, count, height, scrollVelocityRef }, ref) => {
   const mesh = useRef<THREE.Mesh<THREE.BufferGeometry, THREE.ShaderMaterial>>(null!);
   useImperativeHandle(ref, () => mesh.current);
   const geometry = useMemo(
     () => createStackedPlanesBufferGeometry(count, width, height, 0, 100),
     [count, width, height],
   );
+  const smoothedBoost = useRef(1);
   useFrame((_, delta) => {
-    mesh.current.material.uniforms.time.value += 0.1 * delta;
+    const rawVelocity = Math.abs(scrollVelocityRef.current ?? 0);
+    const targetBoost = 1 + Math.min(rawVelocity * 0.012, 6);
+    smoothedBoost.current += (targetBoost - smoothedBoost.current) * Math.min(delta * 4, 1);
+    mesh.current.material.uniforms.time.value += 0.1 * delta * smoothedBoost.current;
   });
   return <mesh ref={mesh} geometry={geometry} material={material} />;
 });
@@ -242,6 +246,26 @@ export function BeamsBackground({
   className,
 }: BeamsProps) {
   const meshRef = useRef<THREE.Mesh<THREE.BufferGeometry, THREE.ShaderMaterial>>(null!);
+  const scrollVelocityRef = useRef<number>(0);
+
+  useEffect(() => {
+    let lastScrollY = window.scrollY;
+    let lastTime = performance.now();
+    let decayTimer: ReturnType<typeof setTimeout> | undefined;
+    const onScroll = () => {
+      const now = performance.now();
+      const dt = now - lastTime;
+      if (dt > 0) {
+        scrollVelocityRef.current = Math.abs(window.scrollY - lastScrollY) / dt * 16;
+      }
+      lastScrollY = window.scrollY;
+      lastTime = now;
+      clearTimeout(decayTimer);
+      decayTimer = setTimeout(() => { scrollVelocityRef.current = 0; }, 120);
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   const beamMaterial = useMemo(
     () =>
@@ -296,6 +320,7 @@ export function BeamsBackground({
             count={beamNumber}
             width={beamWidth}
             height={beamHeight}
+            scrollVelocityRef={scrollVelocityRef}
           />
           <DirLight color={lightColor} position={[0, 3, 10]} />
         </group>

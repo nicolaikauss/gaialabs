@@ -62,13 +62,20 @@ function GlassPrimaryButton({ href, children }: { href: string; children: React.
     <Link
       href={href}
       className={cn(
-        "group inline-flex items-center justify-center gap-2 rounded-full bg-white px-7 py-3.5 text-sm font-semibold text-black",
-        "shadow-[0_2px_24px_-4px_rgba(52,211,153,0.25)] transition-all duration-300",
-        "hover:shadow-[0_4px_32px_-4px_rgba(52,211,153,0.35)] hover:bg-emerald-50 active:scale-[0.98]",
+        "group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full px-7 py-3.5 text-sm font-semibold transition-all duration-300 active:scale-[0.98]",
+        "bg-white text-black shadow-[0_2px_24px_-4px_rgba(52,211,153,0.25)]",
+        "hover:text-black hover:shadow-[0_4px_40px_-4px_rgba(52,211,153,0.5)]",
       )}
     >
-      {children}
-      <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-0.5" />
+      {/* Gradient fill that slides in on hover */}
+      <span
+        className="absolute inset-0 translate-y-full rounded-full bg-gradient-to-r from-emerald-300 via-emerald-400 to-emerald-500 transition-transform duration-300 ease-out group-hover:translate-y-0"
+        aria-hidden
+      />
+      <span className="relative z-10 flex items-center gap-2">
+        {children}
+        <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-0.5" />
+      </span>
     </Link>
   );
 }
@@ -79,12 +86,17 @@ function GlassSecondaryButton({ href, children }: { href: string; children: Reac
     <Link
       href={href}
       className={cn(
-        "inline-flex items-center justify-center rounded-full border border-white/20 px-7 py-3.5 text-sm font-medium text-white",
+        "group relative inline-flex items-center justify-center overflow-hidden rounded-full border border-white/20 px-7 py-3.5 text-sm font-medium text-white",
         "bg-white/[0.06] backdrop-blur-xl ring-1 ring-inset ring-white/10",
-        "transition-all duration-300 hover:bg-white/[0.12] hover:border-white/30 active:scale-[0.98]",
+        "transition-all duration-300 hover:border-emerald-400/40 hover:text-black active:scale-[0.98]",
       )}
     >
-      {children}
+      {/* Gradient fill slides in on hover */}
+      <span
+        className="absolute inset-0 translate-y-full rounded-full bg-gradient-to-r from-emerald-300 via-emerald-400 to-emerald-500 transition-transform duration-300 ease-out group-hover:translate-y-0"
+        aria-hidden
+      />
+      <span className="relative z-10">{children}</span>
     </Link>
   );
 }
@@ -152,14 +164,6 @@ export function BeamsHero() {
                   ),
                 )}
               </motion.h1>
-
-              {/* Description — short, supporting */}
-              <motion.p
-                variants={fadeUp}
-                className="mx-auto mt-8 max-w-2xl text-lg leading-relaxed text-white/60 sm:text-xl"
-              >
-                {site.description}
-              </motion.p>
 
               {/* Glass CTA row */}
               <motion.div

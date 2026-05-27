@@ -1,7 +1,9 @@
+"use client";
+
 import { site } from "@/lib/site";
 import type { VariantSlug } from "@/lib/variants";
 import { cn } from "@/lib/utils";
-import { CpuArchitecture } from "@/components/ui/cpu-architecture";
+import { TextScrambleInView } from "@/components/ui/text-scramble";
 
 const glassCard =
   "rounded-[2rem] border border-white/15 bg-white/[0.06] backdrop-blur-xl shadow-[0_8px_32px_-8px_rgba(0,0,0,0.4)] ring-1 ring-inset ring-white/10 transition-all duration-300 hover:bg-white/[0.09] hover:border-white/25";
@@ -29,7 +31,9 @@ export function Approach({ variant }: { variant: VariantSlug }) {
               isDark && "text-white",
             )}
           >
-            Our approach
+            <TextScrambleInView as="span" duration={0.9} speed={0.03}>
+              Our approach
+            </TextScrambleInView>
           </h2>
           <p className={cn("mt-4 text-base leading-relaxed", isDark ? "text-white/50" : "text-muted-foreground")}>
             {site.description}
@@ -69,15 +73,6 @@ export function Approach({ variant }: { variant: VariantSlug }) {
           ))}
         </div>
 
-        {/* Decorative circuit — whisper-quiet divider */}
-        <div className="pointer-events-none mt-24 flex justify-center opacity-[0.08]" aria-hidden>
-          <CpuArchitecture
-            text="Gaia"
-            className={isDark ? "text-white/50" : "text-foreground/50"}
-            width="480px"
-            height="100px"
-          />
-        </div>
       </div>
     </section>
   );
