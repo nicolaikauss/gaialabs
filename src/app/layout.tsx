@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { DM_Sans, IBM_Plex_Mono, Lora, Manrope } from "next/font/google";
 import { ThemeProvider } from "@/components/providers/theme-provider";
+import { SplashScreen } from "@/components/ui/splash-screen";
 import "./globals.css";
 
 const dmSans = DM_Sans({
@@ -48,6 +49,7 @@ export default function RootLayout({
             __html: `(function(){try{var t=localStorage.getItem("theme");if(t==="dark"||t==="light"){document.documentElement.classList.add(t);document.documentElement.style.colorScheme=t}else{document.documentElement.classList.add("dark");document.documentElement.style.colorScheme="dark"}}catch(e){}})();`,
           }}
         />
+        <SplashScreen />
         <ThemeProvider defaultTheme="dark">{children}</ThemeProvider>
       </body>
     </html>
