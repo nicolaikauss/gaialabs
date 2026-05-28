@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import dynamic from "next/dynamic";
 import { motion } from "motion/react";
@@ -48,15 +48,13 @@ const fadeUp: Variants = {
 /** Liquid Glass badge — small frosted pill with luminous edge */
 function GlassBadge({ children }: { children: React.ReactNode }) {
   return (
-    <span
-      className="inline-flex items-center rounded-full border border-white/25 bg-white/[0.08] px-4 py-2 text-sm font-medium text-white/90 backdrop-blur-xl ring-1 ring-inset ring-white/20"
-    >
+    <span className="inline-flex items-center rounded-full border border-white/25 bg-white/[0.08] px-4 py-2 text-sm font-medium text-white/90 backdrop-blur-xl ring-1 ring-inset ring-white/20">
       {children}
     </span>
   );
 }
 
-/** Liquid Glass primary CTA — solid white with soft emerald tint on hover */
+/** Liquid Glass primary CTA */
 function GlassPrimaryButton({ href, children }: { href: string; children: React.ReactNode }) {
   return (
     <Link
@@ -67,11 +65,7 @@ function GlassPrimaryButton({ href, children }: { href: string; children: React.
         "hover:text-black hover:shadow-[0_4px_40px_-4px_rgba(52,211,153,0.5)]",
       )}
     >
-      {/* Gradient fill that slides in on hover */}
-      <span
-        className="absolute inset-0 translate-y-full rounded-full bg-gradient-to-r from-emerald-300 via-emerald-400 to-emerald-500 transition-transform duration-300 ease-out group-hover:translate-y-0"
-        aria-hidden
-      />
+      <span className="absolute inset-0 translate-y-full rounded-full bg-gradient-to-r from-emerald-300 via-emerald-400 to-emerald-500 transition-transform duration-300 ease-out group-hover:translate-y-0" aria-hidden />
       <span className="relative z-10 flex items-center gap-2">
         {children}
         <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-0.5" />
@@ -80,7 +74,7 @@ function GlassPrimaryButton({ href, children }: { href: string; children: React.
   );
 }
 
-/** Liquid Glass secondary CTA — translucent with depth */
+/** Liquid Glass secondary CTA */
 function GlassSecondaryButton({ href, children }: { href: string; children: React.ReactNode }) {
   return (
     <Link
@@ -91,11 +85,7 @@ function GlassSecondaryButton({ href, children }: { href: string; children: Reac
         "transition-all duration-300 hover:border-emerald-400/40 hover:text-black active:scale-[0.98]",
       )}
     >
-      {/* Gradient fill slides in on hover */}
-      <span
-        className="absolute inset-0 translate-y-full rounded-full bg-gradient-to-r from-emerald-300 via-emerald-400 to-emerald-500 transition-transform duration-300 ease-out group-hover:translate-y-0"
-        aria-hidden
-      />
+      <span className="absolute inset-0 translate-y-full rounded-full bg-gradient-to-r from-emerald-300 via-emerald-400 to-emerald-500 transition-transform duration-300 ease-out group-hover:translate-y-0" aria-hidden />
       <span className="relative z-10">{children}</span>
     </Link>
   );
@@ -125,7 +115,7 @@ export function BeamsHero() {
         )}
       </div>
 
-      {/* Layer 1: depth gradient wash — soft vignette for readability */}
+      {/* Layer 1: depth gradient wash */}
       <div className="absolute inset-0 z-[1] bg-[radial-gradient(ellipse_70%_60%_at_50%_40%,transparent_30%,rgba(0,0,0,0.55)_100%)]" />
       <div className="absolute inset-0 z-[1] bg-gradient-to-b from-black/20 via-transparent to-black/50" />
 
@@ -146,38 +136,21 @@ export function BeamsHero() {
                 <GlassBadge>{site.parent}</GlassBadge>
               </motion.div>
 
-              {/* Headline — three-part directional entrance */}
-              <h1 className="max-w-4xl text-[2.75rem] font-semibold leading-[1.1] tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl">
-                {/* "We back the" — slides in from the left */}
-                <motion.span
-                  className="inline-block"
-                  initial={reducedMotion ? false : { opacity: 0, x: -70 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 0.35 }}
-                >
-                  We back the
-                </motion.span>
+              {/* Headline */}
+              <motion.h1
+                variants={fadeUp}
+                className="max-w-4xl text-[2.75rem] font-semibold leading-[1.1] tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl"
+              >
+                <span className="inline-block">We back the</span>
                 {" "}
-                {/* "ventures that will" — slides in from the right */}
-                <motion.span
-                  className="inline-block bg-gradient-to-r from-emerald-200 via-emerald-400 to-emerald-500 bg-clip-text text-transparent"
-                  initial={reducedMotion ? false : { opacity: 0, x: 70 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 0.4 }}
-                >
+                <span className="inline-block bg-gradient-to-r from-emerald-200 via-emerald-400 to-emerald-500 bg-clip-text text-transparent">
                   ventures that will
-                </motion.span>
+                </span>
                 {" "}
-                {/* "define tomorrow" — fades in slowly once both have landed */}
-                <motion.span
-                  className="inline-block bg-gradient-to-r from-emerald-200 via-emerald-400 to-emerald-500 bg-clip-text text-transparent"
-                  initial={reducedMotion ? false : { opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1], delay: 0.9 }}
-                >
+                <span className="inline-block bg-gradient-to-r from-emerald-200 via-emerald-400 to-emerald-500 bg-clip-text text-transparent">
                   define tomorrow
-                </motion.span>
-              </h1>
+                </span>
+              </motion.h1>
 
               {/* Glass CTA row */}
               <motion.div
@@ -192,7 +165,7 @@ export function BeamsHero() {
                 </GlassSecondaryButton>
               </motion.div>
 
-              {/* Floating credibility strip — translucent pills */}
+              {/* Floating credibility strip */}
               <motion.div
                 variants={fadeUp}
                 className="mt-20 flex flex-wrap items-center justify-center gap-3"
@@ -213,4 +186,3 @@ export function BeamsHero() {
     </header>
   );
 }
-
