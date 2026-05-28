@@ -146,24 +146,38 @@ export function BeamsHero() {
                 <GlassBadge>{site.parent}</GlassBadge>
               </motion.div>
 
-              {/* Headline — large, confident, calm */}
-              <motion.h1
-                variants={fadeUp}
-                className="max-w-4xl text-[2.75rem] font-semibold leading-[1.1] tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl"
-              >
-                {site.headlines.beams.split(" ").map((word, i) =>
-                  i >= 3 ? (
-                    <span
-                      key={`${word}-${i}`}
-                      className="bg-gradient-to-r from-emerald-200 via-emerald-400 to-emerald-500 bg-clip-text text-transparent"
-                    >
-                      {word}{" "}
-                    </span>
-                  ) : (
-                    <span key={`${word}-${i}`}>{word} </span>
-                  ),
-                )}
-              </motion.h1>
+              {/* Headline — three-part directional entrance */}
+              <h1 className="max-w-4xl text-[2.75rem] font-semibold leading-[1.1] tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl">
+                {/* "We back the" — slides in from the left */}
+                <motion.span
+                  className="inline-block"
+                  initial={reducedMotion ? false : { opacity: 0, x: -70 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 0.35 }}
+                >
+                  We back the
+                </motion.span>
+                {" "}
+                {/* "ventures that will" — slides in from the right */}
+                <motion.span
+                  className="inline-block bg-gradient-to-r from-emerald-200 via-emerald-400 to-emerald-500 bg-clip-text text-transparent"
+                  initial={reducedMotion ? false : { opacity: 0, x: 70 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 0.4 }}
+                >
+                  ventures that will
+                </motion.span>
+                {" "}
+                {/* "define tomorrow" — fades in slowly once both have landed */}
+                <motion.span
+                  className="inline-block bg-gradient-to-r from-emerald-200 via-emerald-400 to-emerald-500 bg-clip-text text-transparent"
+                  initial={reducedMotion ? false : { opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1], delay: 0.9 }}
+                >
+                  define tomorrow
+                </motion.span>
+              </h1>
 
               {/* Glass CTA row */}
               <motion.div
