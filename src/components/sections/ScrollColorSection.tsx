@@ -60,7 +60,7 @@ export function ScrollColorSection() {
           <div className="flex flex-col gap-8">
             <motion.p
               variants={fadeUp}
-              className="text-base leading-relaxed text-white/55 md:text-lg"
+              className="text-base leading-relaxed text-white/70 md:text-lg"
             >
               {site.description}
             </motion.p>
@@ -69,12 +69,12 @@ export function ScrollColorSection() {
               {cards.map(({ label, value }) => (
                 <div
                   key={label}
-                  className="flex flex-col gap-1.5 rounded-2xl border border-white/[0.08] bg-white/[0.04] p-4 ring-1 ring-inset ring-white/[0.05]"
+                  className="flex flex-col gap-1.5 rounded-2xl border border-white/[0.15] bg-white/[0.08] p-4 ring-1 ring-inset ring-white/[0.08]"
                 >
-                  <span className="font-mono text-[9px] font-medium uppercase tracking-widest text-white/30">
+                  <span className="font-mono text-[9px] font-medium uppercase tracking-widest text-white/50">
                     {label}
                   </span>
-                  <span className="text-[11px] font-semibold leading-tight text-white/75">
+                  <span className="text-[11px] font-semibold leading-tight text-white/90">
                     {value}
                   </span>
                 </div>

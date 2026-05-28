@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 import { TextScrambleInView } from "@/components/ui/text-scramble";
 
 const glassCard =
-  "rounded-[2rem] border border-white/15 bg-white/[0.06] backdrop-blur-xl shadow-[0_8px_32px_-8px_rgba(0,0,0,0.4)] ring-1 ring-inset ring-white/10 transition-all duration-300 hover:bg-white/[0.09] hover:border-white/25";
+  "rounded-[2rem] border border-white/20 bg-white/[0.09] backdrop-blur-xl shadow-[0_8px_32px_-8px_rgba(0,0,0,0.4)] ring-1 ring-inset ring-white/15 transition-all duration-300 hover:bg-white/[0.13] hover:border-white/30";
 
 export function Approach({ variant }: { variant: VariantSlug }) {
   const isDark = true;
@@ -35,7 +35,7 @@ export function Approach({ variant }: { variant: VariantSlug }) {
               Our approach
             </TextScrambleInView>
           </h2>
-          <p className={cn("mt-4 text-base leading-relaxed", isDark ? "text-white/50" : "text-muted-foreground")}>
+          <p className={cn("mt-4 text-base leading-relaxed", isDark ? "text-white/65" : "text-muted-foreground")}>
             {site.description}
           </p>
         </div>
@@ -54,7 +54,7 @@ export function Approach({ variant }: { variant: VariantSlug }) {
               />
 
               {/* Step number — faint, architectural */}
-              <span className="font-mono text-4xl font-light leading-none text-white/10">
+              <span className="font-mono text-4xl font-light leading-none text-white/25">
                 {String(i + 1).padStart(2, "0")}
               </span>
 
@@ -66,7 +66,7 @@ export function Approach({ variant }: { variant: VariantSlug }) {
               >
                 {item.title}
               </h3>
-              <p className={cn("mt-2 text-sm leading-relaxed", isDark ? "text-white/50" : "text-muted-foreground")}>
+              <p className={cn("mt-2 text-sm leading-relaxed", isDark ? "text-white/65" : "text-muted-foreground")}>
                 {item.description}
               </p>
             </article>

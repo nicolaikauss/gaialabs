@@ -186,7 +186,7 @@ export function BeamsHero() {
                 {["Deep Tech", "Fintech", "Sustainable Innovation", "Seed & Series A"].map((tag) => (
                   <span
                     key={tag}
-                    className="rounded-full border border-white/15 bg-white/[0.05] px-4 py-1.5 text-xs font-medium text-white/50 backdrop-blur-md ring-1 ring-inset ring-white/10"
+                    className="rounded-full border border-white/25 bg-white/[0.09] px-4 py-1.5 text-xs font-medium text-white/70 backdrop-blur-md ring-1 ring-inset ring-white/15"
                   >
                     {tag}
                   </span>

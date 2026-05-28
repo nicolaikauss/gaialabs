@@ -61,7 +61,7 @@ export function Contact({ variant }: { variant: VariantSlug }) {
     >
       <div className="mx-auto max-w-3xl">
         {/* Glass card */}
-        <div className="relative overflow-hidden rounded-[2.5rem] border border-white/15 bg-white/[0.05] backdrop-blur-2xl shadow-[0_12px_48px_-12px_rgba(0,0,0,0.5)] ring-1 ring-inset ring-white/10">
+        <div className="relative overflow-hidden rounded-[2.5rem] border border-white/20 bg-white/[0.09] backdrop-blur-2xl shadow-[0_12px_48px_-12px_rgba(0,0,0,0.5)] ring-1 ring-inset ring-white/15">
           <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/25 to-transparent" aria-hidden />
 
           {/* Static header */}
@@ -74,7 +74,7 @@ export function Contact({ variant }: { variant: VariantSlug }) {
                 Get in touch
               </TextScrambleInView>
             </h2>
-            <p className={cn("mt-4 text-base leading-relaxed", isDark ? "text-white/50" : "text-muted-foreground")}>
+            <p className={cn("mt-4 text-base leading-relaxed", isDark ? "text-white/65" : "text-muted-foreground")}>
               {site.name} operates under {site.parent}.
             </p>
 
